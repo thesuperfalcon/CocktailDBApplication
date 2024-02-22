@@ -9,7 +9,7 @@ namespace CocktailDBApplication.ViewModels
 {
     internal class DrinkViewModel
     {
-        public static async Task<List<Drink>> GetDrinkAsync(string param, string value)
+        public static async Task<List<Drink>> GetDrinksAsync(string param, string value)
         {
             var apiUrl = $"https://www.thecocktaildb.com/api/json/v1/1/{param}{value}";
 

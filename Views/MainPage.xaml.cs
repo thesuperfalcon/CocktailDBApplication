@@ -7,25 +7,33 @@ namespace CocktailDBApplication
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false); // Hide the navigation bar
         }
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            await SetImageSources();
+        }
+
+        private async Task SetImageSources()
+        {
+               
+
+        }
 
         private async void OnButtonPressedShowRecepies(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(searchBar.Text))
             {
                 string input = searchBar.Text;
-                List<Drink> drinks = await DrinkViewModel.GetDrinkAsync("search.php?s=", searchBar.Text);
+                List<Drink> drinks = await DrinkViewModel.GetDrinksAsync("search.php?s=", searchBar.Text);
                 DisplayDrink(drinks);
             }
         }
-
 
         private async void DisplayDrink(List<Drink> drinks)
         {
@@ -40,6 +48,19 @@ namespace CocktailDBApplication
             var selectedDrink = e.SelectedItem as Drink;
             await Navigation.PushAsync(new Views.DisplayDrinkPage(selectedDrink));
             ((ListView)sender).SelectedItem = null;
+        }
+
+        private void Button1_Clicked(object sender, EventArgs e)
+        {
+
+        }
+        private void Button2_Clicked(object sender, EventArgs e)
+        {
+
+        }
+        private void Button3_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }
