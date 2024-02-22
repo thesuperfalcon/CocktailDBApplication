@@ -1,0 +1,25 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CocktailDBApplication.Views.DisplayDrinkPage"
+             Title="DisplayDrinkPage">
+    <VerticalStackLayout>
+        <Image x:Name="cocktailImage" Aspect="AspectFit" Source="{Binding strDrinkThumb}" WidthRequest="200" />
+
+        <Label Text="{Binding strDrink}" FontSize="Title" HorizontalOptions="CenterAndExpand" />
+        <Label Text="{Binding idDrink}" />
+        <Label Text="{Binding strGlass}" />
+        <Label Text="{Binding strInstructions}" />
+
+        <ListView x:Name="ShowIngredientAndMeasurement">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>
