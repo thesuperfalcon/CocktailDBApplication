@@ -44,7 +44,7 @@ namespace CocktailDBApplication
             }
         }
 
-        private async void DrinkSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;
@@ -61,8 +61,7 @@ namespace CocktailDBApplication
                 else if (displayItem.Item is Ingredient)
                 {
                     var selectedIngredient = displayItem.Item as Ingredient;
-                    // Handle the selected ingredient here
-                    await DisplayAlert("Selected Ingredient", $"You selected: {selectedIngredient.strIngredient}", "OK");
+                    await Navigation.PushAsync(new Views.DisplayIngredientPage(selectedIngredient));
                 }
             }
 

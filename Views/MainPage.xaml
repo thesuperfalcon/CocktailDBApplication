@@ -15,7 +15,7 @@
             <SearchBar x:Name="searchBar" SearchButtonPressed="OnButtonPressedShowRecepies"/>
 
             <ListView x:Name="listView"
-                      ItemSelected="DrinkSelected">
+                      ItemSelected="ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

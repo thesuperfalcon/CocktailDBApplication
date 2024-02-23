@@ -1,6 +1,6 @@
 ﻿namespace CocktailDBApplication.Models
 {
-    internal class Ingredient
+    public class Ingredient
     {
 
         public string idIngredient { get; set; }
