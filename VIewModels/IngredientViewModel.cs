@@ -5,29 +5,42 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using CocktailDBApplication.Models;
+using Newtonsoft.Json;
 
 namespace CocktailDBApplication.VIewModels
 {
     internal class IngredientViewModel
     {
-        public static async Task<Ingredient>GetIngredientAsync(string uri, string input)
+        public static async Task<List<Ingredient>> GetIngredientsAsync(string param, string value)
         {
-            Ingredient ingredient = null;
+            var apiUrl = $"https://www.thecocktaildb.com/api/json/v1/1/{param}{value}";
 
-            var client = new HttpClient();
-
-            string baseAdress = "https://www.thecocktaildb.com/api/json/v1/1/";
-
-            client.BaseAddress = new Uri(baseAdress);
-
-            HttpResponseMessage response = await client.GetAsync(uri);
-
-            if(response.IsSuccessStatusCode)
+            using (var httpClient = new HttpClient())
             {
-                string responseString = await response.Content.ReadAsStringAsync();
-                ingredient = JsonSerializer.Deserialize<Ingredient>(responseString);
+                try
+                {
+                    var response = await httpClient.GetAsync(apiUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+
+                        var ingredientInfo = JsonConvert.DeserializeObject<IngredientListResponse>(json);
+
+                        return ingredientInfo?.Ingredients;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Failed to retrieve ingredients: {response.StatusCode}");
+                        return null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                    return null;
+                }
             }
-            return ingredient;
         }
     }
 }
