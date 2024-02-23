@@ -21,5 +21,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Text="Main_>Page" Clicked="OnClickedMainPage" />
     </VerticalStackLayout>
 </ContentPage>
