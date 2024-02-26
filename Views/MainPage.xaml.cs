@@ -19,12 +19,13 @@ namespace CocktailDBApplication
 
                 List<Drink> drinks = await DrinkViewModel.GetDrinksAsync("search.php?s=", searchBar.Text);
                 List<Ingredient> ingredients = await IngredientViewModel.GetIngredientsAsync("search.php?i=", searchBar.Text);
+                List<Drink> drinksOfIngredient = await DrinkViewModel.GetDrinksByIngredientAsync(drinks);
 
                 List<DisplayItem> combinedResults = new List<DisplayItem>();
 
                 if (drinks != null && drinks.Any())
                 {
-                    combinedResults.Add(new DisplayItem { Item = null, Name = "Drink:" });
+                    combinedResults.Add(new DisplayItem { Item = null, Name = "Drinks:" });
                     foreach (var drink in drinks)
                     {
                         combinedResults.Add(new DisplayItem { Item = drink, Name = drink.strDrink });
@@ -37,6 +38,15 @@ namespace CocktailDBApplication
                     foreach (var ingredient in ingredients)
                     {
                         combinedResults.Add(new DisplayItem { Item = ingredient, Name = ingredient.strIngredient });
+                    }
+                }
+
+                if(drinksOfIngredient != null && drinksOfIngredient.Any())
+                {
+                    combinedResults.Add(new DisplayItem { Item = null, Name = $"Drinks containing {searchBar.Text}: " });
+                    foreach(var drinkOfIngredient  in drinksOfIngredient)
+                    {
+                        combinedResults.Add(new DisplayItem { Item = drinkOfIngredient, Name = drinkOfIngredient.strDrink });
                     }
                 }
 

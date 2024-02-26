@@ -21,7 +21,6 @@
                         <ViewCell>
                             <StackLayout>
                                 <Label Text="{Binding}" />
-                                <!-- Add additional labels or controls to display more properties of Drink or Ingredient -->
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

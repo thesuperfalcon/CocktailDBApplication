@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -39,6 +40,17 @@ namespace CocktailDBApplication.ViewModels
                     return null;
                 }
             }
+        }
+        public static async Task<List<Drink>> GetDrinksByIngredientAsync(List<Drink> drinks)
+        {
+            List<Drink> foundedDrinks = new List<Drink>();
+
+            foreach(var drink in drinks)
+            {
+                var foundedDrink = await GetDrinksAsync("lookup.php?i=", drink.idDrink);
+                foundedDrinks.Add(foundedDrink.FirstOrDefault());
+            }
+            return foundedDrinks;
         }
     }
 }
