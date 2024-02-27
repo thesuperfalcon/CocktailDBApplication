@@ -20,19 +20,8 @@
 
                 <SearchBar x:Name="searchBar" SearchButtonPressed="ShowRecepiesMatch"/>
 
-                <ListView x:Name="listView"
-                          ItemSelected="ItemSelected">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout>
-                                    <Label Text="{Binding}" />
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-
+                <Button x:Name="IngredientList" Text="Show Ingredients" Clicked="OnClickedShowIngredients" ></Button>
+                
             </StackLayout>
         </ScrollView>
 
