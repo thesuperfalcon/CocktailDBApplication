@@ -164,11 +164,6 @@ namespace CocktailDBApplication.Views
             return double.Parse(value);
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-
-        }
-
         private async void OnClickedMainPage(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new MainPage());

@@ -3,31 +3,67 @@
              x:Class="CocktailDBApplication.MainPage"
              Shell.NavBarIsVisible="false">
 
-    <ScrollView>
-        <StackLayout Padding="30,0" Spacing="25">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-            <Image Source="https://static.vecteezy.com/system/resources/previews/000/442/801/original/vector-cocktail-icon.jpg" 
-                   WidthRequest="100" 
-                   HorizontalOptions="Start"
-                   VerticalOptions="Start"
-                   Margin="0,0,0,10"/>
+        <ScrollView Grid.Row="0">
+            <StackLayout Padding="30,0" Spacing="25">
 
-            <SearchBar x:Name="searchBar" SearchButtonPressed="OnButtonPressedShowRecepies"/>
+                <Image Source="https://static.vecteezy.com/system/resources/previews/000/442/801/original/vector-cocktail-icon.jpg" 
+                       WidthRequest="100" 
+                       HorizontalOptions="Start"
+                       VerticalOptions="Start"
+                       Margin="0,0,0,10"/>
 
-            <ListView x:Name="listView"
-                      ItemSelected="ItemSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Label Text="{Binding}" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                <SearchBar x:Name="searchBar" SearchButtonPressed="ShowRecepiesMatch"/>
 
-        </StackLayout>
-    </ScrollView>
+                <ListView x:Name="listView"
+                          ItemSelected="ItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Label Text="{Binding}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackLayout>
+        </ScrollView>
+
+        <FlexLayout Grid.Row="1" Direction="Row" Wrap="Wrap" JustifyContent="SpaceEvenly" AlignItems="Center" BackgroundColor="LightGray" Padding="5">
+            <Button Text="A" Clicked="AlphabetButtonClicked" />
+            <Button Text="B" Clicked="AlphabetButtonClicked" />
+            <Button Text="C" Clicked="AlphabetButtonClicked" />
+            <Button Text="D" Clicked="AlphabetButtonClicked" />
+            <Button Text="E" Clicked="AlphabetButtonClicked" />
+            <Button Text="F" Clicked="AlphabetButtonClicked" />
+            <Button Text="G" Clicked="AlphabetButtonClicked" />
+            <Button Text="H" Clicked="AlphabetButtonClicked" />
+            <Button Text="I" Clicked="AlphabetButtonClicked" />
+            <Button Text="J" Clicked="AlphabetButtonClicked" />
+            <Button Text="K" Clicked="AlphabetButtonClicked" />
+            <Button Text="L" Clicked="AlphabetButtonClicked" />
+            <Button Text="M" Clicked="AlphabetButtonClicked" />
+            <Button Text="N" Clicked="AlphabetButtonClicked" />
+            <Button Text="O" Clicked="AlphabetButtonClicked" />
+            <Button Text="P" Clicked="AlphabetButtonClicked" />
+            <Button Text="Q" Clicked="AlphabetButtonClicked" />
+            <Button Text="R" Clicked="AlphabetButtonClicked" />
+            <Button Text="S" Clicked="AlphabetButtonClicked" />
+            <Button Text="T" Clicked="AlphabetButtonClicked" />
+            <Button Text="U" Clicked="AlphabetButtonClicked" />
+            <Button Text="V" Clicked="AlphabetButtonClicked" />
+            <Button Text="W" Clicked="AlphabetButtonClicked" />
+            <Button Text="X" Clicked="AlphabetButtonClicked" />
+            <Button Text="Y" Clicked="AlphabetButtonClicked" />
+            <Button Text="Z" Clicked="AlphabetButtonClicked" />
+        </FlexLayout>
+    </Grid>
 
 </ContentPage>

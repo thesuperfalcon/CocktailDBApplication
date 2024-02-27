@@ -77,5 +77,26 @@ namespace CocktailDBApplication
 
     ((ListView)sender).SelectedItem = null;
         }
+        private async void ShowRecepiesMatch(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(searchBar.Text))
+            {
+                List<Drink> drinks = await DrinkViewModel.GetDrinksAsync("search.php?s=", searchBar.Text);
+
+                if (drinks != null && drinks.Any())
+                {
+                    await Navigation.PushAsync(new Views.DisplayDrinksChoicePage(drinks));
+                }
+            }
+        }
+
+        private async void AlphabetButtonClicked(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+
+            List<Drink> drinks = await DrinkViewModel.GetDrinksAsync("search.php?f=", button.Text);
+
+            await Navigation.PushAsync(new Views.DisplayDrinksChoicePage(drinks));
+        }
     }
 }
