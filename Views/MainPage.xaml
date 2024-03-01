@@ -21,7 +21,10 @@
                 <SearchBar x:Name="searchBar" SearchButtonPressed="ShowRecepiesMatch"/>
 
                 <Button x:Name="IngredientList" Text="Show Ingredients" Clicked="OnClickedShowIngredients" ></Button>
-                
+
+                <Button x:Name="FilterList" Text="Show Filters" Clicked="OnClickedShowFilters" ></Button>
+
+
             </StackLayout>
         </ScrollView>
 

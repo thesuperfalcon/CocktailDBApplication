@@ -1,4 +1,5 @@
 using CocktailDBApplication.Models;
+using CocktailDBApplication.ViewModels;
 using CocktailDBApplication.VIewModels;
 using System.Collections.Generic;
 
@@ -36,6 +37,19 @@ public partial class DisplayIngredientChoicePage : ContentPage
                     Children = { imageButton, label },
                     Margin = new Thickness(5)
                 };
+                imageButton.GestureRecognizers.Add(new TapGestureRecognizer
+                {
+                    Command = new Command(async () =>
+                    {
+                        var drinkList = await DrinkViewModel.GetDrinksAsync("filter.php?i=", ingredientName);
+                        if (drinkList != null && drinkList.Any())
+                        {
+                            var specificDrinks = await DrinkViewModel.GetDrinksByIngredientAsync(drinkList);
+                            await Navigation.PushAsync(new Views.DisplayDrinksChoicePage(specificDrinks));
+                        }
+                    })
+                });
+
                 ingredientFlexLayout.Children.Add(stackLayout);
             }
         }

@@ -47,5 +47,10 @@ namespace CocktailDBApplication
             }
             await Navigation.PushAsync(new Views.DisplayIngredientChoicePage(ingredients));
         }
+
+        private async void OnClickedShowFilters(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Views.DisplayFilterPage());
+        }
     }
 }
