@@ -45,12 +45,21 @@ namespace CocktailDBApplication.ViewModels
         {
             List<Drink> foundedDrinks = new List<Drink>();
 
-            foreach(var drink in drinks)
+            try
             {
-                var foundedDrink = await GetDrinksAsync("lookup.php?i=", drink.idDrink);
-                foundedDrinks.Add(foundedDrink.FirstOrDefault());
+                foreach (var drink in drinks)
+                {
+                    var foundedDrink = await GetDrinksAsync("lookup.php?i=", drink.idDrink);
+                    foundedDrinks.Add(foundedDrink.FirstOrDefault());
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+
             return foundedDrinks;
         }
+
     }
 }

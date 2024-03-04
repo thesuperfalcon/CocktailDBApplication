@@ -1,6 +1,5 @@
 using CocktailDBApplication.Models;
 using CocktailDBApplication.ViewModels;
-using CocktailDBApplication.VIewModels;
 using System.Collections.Generic;
 
 namespace CocktailDBApplication.Views;
