@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using CocktailDBApplication.Models;
 using Newtonsoft.Json;
 
-namespace CocktailDBApplication.VIewModels
+namespace CocktailDBApplication.ViewModels
 {
     internal class IngredientViewModel
     {

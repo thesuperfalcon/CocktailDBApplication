@@ -27,23 +27,28 @@ namespace CocktailDBApplication.Views
                 var ingredient = (string)ingredientProperty.GetValue(drink);
                 var measure = (string)measureProperty.GetValue(drink);
 
-                if (!string.IsNullOrEmpty(ingredient) && measure != null)
+                if (!string.IsNullOrEmpty(ingredient))
                 {
-                    measure = ConvertMeasurementToMl(measure.ToLower());
-                    result.Add($"{measure} {ingredient}");
-                }
-                else if (!string.IsNullOrEmpty(ingredient))
-                {
-                    if (ingredient.Any(char.IsDigit))
+                    try
                     {
-                        result.Add(ingredient);
+                        double parsedMeasure;
+                        if (double.TryParse(measure, out parsedMeasure))
+                        {
+                            measure = ConvertMeasurementToMl(measure.ToLower());
+                            result.Add($"{measure} {ingredient}");
+                        }
+                        else
+                        {
+                            nonDigitIngredients.Add(ingredient);
+                        }
                     }
-                    else
+                    catch (FormatException)
                     {
-                        nonDigitIngredients.Add(ingredient);
+                        
                     }
                 }
             }
+
 
             result = result.OrderByDescending(x =>
             {
@@ -66,7 +71,7 @@ namespace CocktailDBApplication.Views
             {
                 case string _ when measure.Contains("oz"):
                     double oz = ParseMixedFraction(measure.Substring(0, measure.IndexOf("oz")).Trim());
-                    double ml = Math.Round(oz * 30, 2); // 1 oz = 30 ml
+                    double ml = Math.Round(oz * 30, 2); 
                     return $"{ml} ml";
 
                 case string _ when measure.Contains("cl"):
@@ -75,36 +80,36 @@ namespace CocktailDBApplication.Views
                         string[] parts = measure.Replace("cl", "").Split('-');
                         if (parts.Length == 2 && double.TryParse(parts[0].Trim(), out double lower) && double.TryParse(parts[1].Trim(), out double upper))
                         {
-                            double total = lower + upper; // Add lower and upper bounds together
-                            double average = total / 2; // Calculate the average of the range
-                            double cl = average * 10; // Convert cl to ml
+                            double total = lower + upper; 
+                            double average = total / 2; 
+                            double cl = average * 10; 
                             return $"{cl} ml";
                         }
                         else
                         {
-                            return "Invalid format"; // Handle invalid range format
+                            return "Invalid format"; 
                         }
                     }
                     else
                     {
                         double cl = double.Parse(measure.Replace(".", ",").Replace("cl", "").Trim());
-                        ml = cl * 10; // 1 cl = 10 ml
+                        ml = cl * 10; 
                         return $"{ml} ml";
                     }
 
                 case string _ when measure.Contains("shot"):
                     if (double.TryParse(measure.Split(' ')[0], out double numberOfShots))
                     {
-                        double totalMl = Math.Round(numberOfShots * 30, 2); // Assuming 1 shot = 30 ml
+                        double totalMl = Math.Round(numberOfShots * 30, 2); 
                         return $"{totalMl} ml";
                     }
                     else
                     {
-                        return "30 ml"; // Default to 30 ml if the number of shots cannot be determined
+                        return "30 ml"; 
                     }
 
                 case string _ when measure.Contains("parts"):
-                    return measure; // Keep it as parts
+                    return measure; 
 
                 case string _ when measure.Contains("dash"):
                     char[] chars = measure.ToCharArray();
@@ -116,10 +121,10 @@ namespace CocktailDBApplication.Views
                             return $"{numberOfDashes} dash{(numberOfDashes > 1 ? "es" : "")}";
                         }
                     }
-                    return "1 dash"; // Treat "dash" as 1 if no digit is found
+                    return "1 dash"; 
 
                 default:
-                    return measure; // Return unchanged if not recognized
+                    return measure; 
             }
         }
 

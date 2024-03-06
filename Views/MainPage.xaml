@@ -22,7 +22,7 @@
 
                 <Button x:Name="IngredientList" Text="Show Ingredients" Clicked="OnClickedShowIngredients" ></Button>
 
-                <Button x:Name="FilterList" Text="Show Filters" Clicked="OnClickedShowFilters" ></Button>
+                <Button x:Name="CategoryList" Text="Show Categories" Clicked="OnClickedShowCategories" ></Button>
 
 
             </StackLayout>

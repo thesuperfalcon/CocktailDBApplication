@@ -64,6 +64,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\DisplayCategoryChoicePage.xaml.cs">
+	    <DependentUpon>DisplayCategoryChoicePage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\DisplayIngredientChoicePage.xaml.cs">
 	    <DependentUpon>DisplayIngredientChoicePage.xaml</DependentUpon>
 	  </Compile>
@@ -76,7 +79,7 @@
 	  <MauiXaml Update="Views\DisplayDrinksChoicePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\DisplayFilterPage.xaml">
+	  <MauiXaml Update="Views\DisplayCategoryChoicePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DisplayIngredientChoicePage.xaml">

@@ -1,6 +1,5 @@
 ﻿using CocktailDBApplication.Models;
 using CocktailDBApplication.ViewModels;
-using CocktailDBApplication.VIewModels;
 
 namespace CocktailDBApplication
 {
@@ -48,7 +47,7 @@ namespace CocktailDBApplication
             await Navigation.PushAsync(new Views.DisplayIngredientChoicePage(ingredients));
         }
 
-        private async void OnClickedShowFilters(object sender, EventArgs e)
+        private async void OnClickedShowCategories(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new Views.DisplayFilterPage());
         }
