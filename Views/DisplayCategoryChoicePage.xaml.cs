@@ -17,7 +17,7 @@ public partial class DisplayFilterPage : ContentPage
 
         if (list != null)
         {
-            var stackLayout = new StackLayout(); // Create a stack layout to hold the buttons
+            var stackLayout = new StackLayout(); 
 
             foreach (var filter in list)
             {
@@ -33,10 +33,10 @@ public partial class DisplayFilterPage : ContentPage
 
                 button.Clicked += (sender, e) => ButtonClicked(sender, e, !string.IsNullOrEmpty(alcoholic) ? alcoholic : categoryName, apiParam);
 
-                stackLayout.Children.Add(button); // Add the button to the stack layout
+                stackLayout.Children.Add(button); 
             }
 
-            Content = stackLayout; // Set the content of the page to the stack layout
+            Content = stackLayout; 
         }
     }
 

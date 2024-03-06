@@ -28,34 +28,9 @@
             </StackLayout>
         </ScrollView>
 
-        <FlexLayout Grid.Row="1" Direction="Row" Wrap="Wrap" JustifyContent="SpaceEvenly" AlignItems="Center" BackgroundColor="Transparent" Padding="5">
-            <Button Text="A" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="B" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="C" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="D" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="E" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="F" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="G" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="H" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="I" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="J" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="K" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="L" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="M" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="N" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="O" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="P" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="Q" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="R" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="S" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="T" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="U" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="V" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="W" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="X" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="Y" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
-            <Button Text="Z" Clicked="AlphabetButtonClicked" BackgroundColor="LightBlue"/>
+        <FlexLayout Grid.Row="1" Direction="Row" Wrap="Wrap" JustifyContent="SpaceEvenly" AlignItems="Center" BackgroundColor="Transparent" Padding="5" x:Name="flexLayout">
         </FlexLayout>
+
     </Grid>
 
 </ContentPage>

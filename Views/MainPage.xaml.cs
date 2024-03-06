@@ -8,8 +8,23 @@ namespace CocktailDBApplication
         public MainPage()
         {
             InitializeComponent();
+            GenerateAlphabetButtons();
         }
-       
+
+        private void GenerateAlphabetButtons()
+        {
+            for (char c = 'A'; c <= 'Z'; c++)
+            {
+                var button = new Button
+                {
+                    Text = c.ToString(),
+                    BackgroundColor = Color.FromRgb(173, 216, 230) // RGB values for LightBlue
+            };
+                button.Clicked += AlphabetButtonClicked;
+                flexLayout.Children.Add(button);
+            }
+        }
+
         private async void ShowRecepiesMatch(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(searchBar.Text))
