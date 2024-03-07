@@ -27,25 +27,18 @@ namespace CocktailDBApplication.Views
                 var ingredient = (string)ingredientProperty.GetValue(drink);
                 var measure = (string)measureProperty.GetValue(drink);
 
-                if (!string.IsNullOrEmpty(ingredient))
+                if (!string.IsNullOrEmpty(ingredient) && measure != null)
                 {
-                    try
+                    measure = ConvertMeasurementToMl(measure.ToLower());
+                    result.Add($"{measure} {ingredient}");
+                }
+                else if (!string.IsNullOrEmpty(ingredient))
+                {
+                    if (ingredient.Any(char.IsDigit))
                     {
-                        double parsedMeasure;
-                        if (double.TryParse(measure, out parsedMeasure))
-                        {
-                            measure = ConvertMeasurementToMl(measure.ToLower());
-                            result.Add($"{measure} {ingredient}");
-                        }
-                        else
-                        {
-                            nonDigitIngredients.Add(ingredient);
-                        }
+                        result.Add(ingredient);
                     }
-                    catch (FormatException)
-                    {
-                        
-                    }
+                    nonDigitIngredients.Add(ingredient);
                 }
             }
 
@@ -71,7 +64,7 @@ namespace CocktailDBApplication.Views
             {
                 case string _ when measure.Contains("oz"):
                     double oz = ParseMixedFraction(measure.Substring(0, measure.IndexOf("oz")).Trim());
-                    double ml = Math.Round(oz * 30, 2); 
+                    double ml = Math.Round(oz * 30, 2);
                     return $"{ml} ml";
 
                 case string _ when measure.Contains("cl"):
@@ -80,36 +73,36 @@ namespace CocktailDBApplication.Views
                         string[] parts = measure.Replace("cl", "").Split('-');
                         if (parts.Length == 2 && double.TryParse(parts[0].Trim(), out double lower) && double.TryParse(parts[1].Trim(), out double upper))
                         {
-                            double total = lower + upper; 
-                            double average = total / 2; 
-                            double cl = average * 10; 
+                            double total = lower + upper;
+                            double average = total / 2;
+                            double cl = average * 10;
                             return $"{cl} ml";
                         }
                         else
                         {
-                            return "Invalid format"; 
+                            return "Invalid format";
                         }
                     }
                     else
                     {
                         double cl = double.Parse(measure.Replace(".", ",").Replace("cl", "").Trim());
-                        ml = cl * 10; 
+                        ml = cl * 10;
                         return $"{ml} ml";
                     }
 
                 case string _ when measure.Contains("shot"):
                     if (double.TryParse(measure.Split(' ')[0], out double numberOfShots))
                     {
-                        double totalMl = Math.Round(numberOfShots * 30, 2); 
+                        double totalMl = Math.Round(numberOfShots * 30, 2);
                         return $"{totalMl} ml";
                     }
                     else
                     {
-                        return "30 ml"; 
+                        return "30 ml";
                     }
 
                 case string _ when measure.Contains("parts"):
-                    return measure; 
+                    return measure;
 
                 case string _ when measure.Contains("dash"):
                     char[] chars = measure.ToCharArray();
@@ -121,10 +114,10 @@ namespace CocktailDBApplication.Views
                             return $"{numberOfDashes} dash{(numberOfDashes > 1 ? "es" : "")}";
                         }
                     }
-                    return "1 dash"; 
+                    return "1 dash";
 
                 default:
-                    return measure; 
+                    return measure;
             }
         }
 
