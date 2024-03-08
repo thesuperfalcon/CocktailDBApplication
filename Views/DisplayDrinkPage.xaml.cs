@@ -1,4 +1,5 @@
 using CocktailDBApplication.Models;
+using System.Globalization;
 
 namespace CocktailDBApplication.Views
 {
@@ -63,7 +64,17 @@ namespace CocktailDBApplication.Views
             switch (measure)
             {
                 case string _ when measure.Contains("oz"):
-                    double oz = ParseMixedFraction(measure.Substring(0, measure.IndexOf("oz")).Trim());
+                    string ozString = measure.Substring(0, measure.IndexOf("oz")).Trim();
+                    double oz;
+                    if (ozString.Contains('/'))
+                    {
+                        oz = ParseMixedFraction(ozString);
+                    }
+                    else
+                    {
+                        oz = double.Parse(ozString, CultureInfo.InvariantCulture);
+                    }
+
                     double ml = Math.Round(oz * 30, 2);
                     return $"{ml} ml";
 
@@ -127,16 +138,19 @@ namespace CocktailDBApplication.Views
             if (value.Contains('/'))
             {
                 var parts = value.Split(' ');
-                double result = 0.0;
+                double wholeNumber = 0.0;
+                double numerator = 0.0;
+                double denominator = 1.0;
 
                 foreach (var part in parts)
                 {
                     if (part.Contains('/'))
                     {
                         string[] fractionParts = part.Split('/');
-                        if (fractionParts.Length == 2 && double.TryParse(fractionParts[0], out double numerator) && double.TryParse(fractionParts[1], out double denominator))
+                        if (fractionParts.Length == 2 && double.TryParse(fractionParts[0], out double num) && double.TryParse(fractionParts[1], out double denom))
                         {
-                            result += numerator / denominator;
+                            numerator = num;
+                            denominator = denom;
                         }
                         else
                         {
@@ -145,9 +159,9 @@ namespace CocktailDBApplication.Views
                     }
                     else
                     {
-                        if (double.TryParse(part, out double wholeNumber))
+                        if (double.TryParse(part, out double num))
                         {
-                            result += wholeNumber;
+                            wholeNumber = num;
                         }
                         else
                         {
@@ -155,8 +169,7 @@ namespace CocktailDBApplication.Views
                         }
                     }
                 }
-
-                return result;
+                return wholeNumber + (numerator / denominator);
             }
 
             return double.Parse(value);
