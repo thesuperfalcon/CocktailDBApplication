@@ -5,6 +5,7 @@ namespace CocktailDBApplication
 {
     public partial class MainPage : ContentPage
     {
+        //Har varken Singleton eller Facade i detta projekt (Skriv förklaring också)
         public MainPage()
         {
             InitializeComponent();
