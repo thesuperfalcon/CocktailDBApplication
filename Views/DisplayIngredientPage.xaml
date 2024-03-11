@@ -6,7 +6,6 @@
     <StackLayout Orientation="Vertical">
         <Label Text="{Binding strIngredient}" FontSize="Title" HorizontalOptions="CenterAndExpand" />
         <Label Text="{Binding strType}" />
-        <Label Text="{Binding strAlcohol} {Binding strABV}" />
         <Label Text="{Binding strDescription}" />
     </StackLayout>
 </ContentPage>

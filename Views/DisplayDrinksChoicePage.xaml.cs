@@ -4,7 +4,6 @@ namespace CocktailDBApplication.Views
 {
     public partial class DisplayDrinksChoicePage : ContentPage
     {
-
         public DisplayDrinksChoicePage(List<Drink> drinks)
         {
             InitializeComponent();

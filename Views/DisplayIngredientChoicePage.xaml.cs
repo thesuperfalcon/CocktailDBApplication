@@ -1,6 +1,7 @@
 using CocktailDBApplication.Models;
 using CocktailDBApplication.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CocktailDBApplication.Views;
 
@@ -10,7 +11,14 @@ public partial class DisplayIngredientChoicePage : ContentPage
     {
         InitializeComponent();
 
-        foreach(var ingredient in ingredients)
+        toggleSwitch.Toggled += async (sender, e) =>
+        {
+            // Handle toggle state change here
+            // You can define the actions for ON and OFF states here
+        };
+
+
+        foreach (var ingredient in ingredients)
         {
             if (ingredient != null)
             {
@@ -36,15 +44,25 @@ public partial class DisplayIngredientChoicePage : ContentPage
                     Children = { imageButton, label },
                     Margin = new Thickness(5)
                 };
+                // Use FFImageLoading to enable asynchronous image loading and caching
+
+                // Add a TapGestureRecognizer to the ImageButton
                 imageButton.GestureRecognizers.Add(new TapGestureRecognizer
                 {
                     Command = new Command(async () =>
                     {
-                        var drinkList = await DrinkViewModel.GetDrinksAsync("filter.php?i=", ingredientName);
-                        if (drinkList != null && drinkList.Any())
+                        if (toggleSwitch.IsToggled)
                         {
-                            var specificDrinks = await DrinkViewModel.GetDrinksByIngredientAsync(drinkList);
-                            await Navigation.PushAsync(new Views.DisplayDrinksChoicePage(specificDrinks));
+                            var drinkList = await DrinkViewModel.GetDrinksAsync("filter.php?i=", ingredientName);
+                            if (drinkList != null && drinkList.Any())
+                            {
+                                var specificDrinks = await DrinkViewModel.GetDrinksByIngredientAsync(drinkList);
+                                await Navigation.PushAsync(new Views.DisplayDrinksChoicePage(specificDrinks));
+                            }
+                        }
+                        else
+                        {
+                            await Navigation.PushAsync(new Views.DisplayIngredientPage(ingredient));
                         }
                     })
                 });

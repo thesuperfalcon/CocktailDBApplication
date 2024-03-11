@@ -3,9 +3,9 @@ using CocktailDBApplication.ViewModels;
 
 namespace CocktailDBApplication.Views;
 
-public partial class DisplayFilterPage : ContentPage
+public partial class DisplayCategoryChoicePage : ContentPage
 {
-    public DisplayFilterPage()
+    public DisplayCategoryChoicePage()
     {
         InitializeComponent();
         InitializeFlexGridLayout();

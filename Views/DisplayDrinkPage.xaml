@@ -3,24 +3,25 @@
              x:Class="CocktailDBApplication.Views.DisplayDrinkPage"
             Shell.NavBarIsVisible="false">
     <VerticalStackLayout>
-        <Image x:Name="cocktailImage" Aspect="AspectFit" Source="{Binding strDrinkThumb}" WidthRequest="200" />
+        <Image x:Name="cocktailImage" Aspect="AspectFit" Source="{Binding strDrinkThumb}" WidthRequest="200" Margin="0, 10, 0, 0" />
 
-        <Label Text="{Binding strDrink}" FontSize="Title" HorizontalOptions="CenterAndExpand" />
-        <Label Text="{Binding idDrink}" />
-        <Label Text="{Binding strGlass}" />
-        <Label Text="{Binding strInstructions}" />
-
+        <Label Text="{Binding strDrink}" FontSize="Title" HorizontalOptions="CenterAndExpand" Margin="0, 15, 0, 0"/>
+        
         <ListView x:Name="ShowIngredientAndMeasurement">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding}" />
+                            <Label Text="{Binding}" HorizontalOptions="CenterAndExpand" Margin="0, 5, 0, 0"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Main_>Page" Clicked="OnClickedMainPage" />
+        <Label Text="{Binding strGlass, StringFormat='Glass: {0}'}" HorizontalOptions="Center" Margin="0, 10, 0, 0"/>
+        <Label Text="{Binding strCategory, StringFormat='Category: {0}'}" HorizontalOptions="Center" Margin="0, 1, 0, 0"/>
+        <Label Text="{Binding strInstructions, StringFormat='Instruction: {0}'}" HorizontalOptions="Center" Margin="0, 10, 0, 0" WidthRequest="300"/>
+
+        <Button Text="Main-Page :)" Clicked="OnClickedMainPage" WidthRequest="150" HeightRequest="50" Margin="0, 25, 0, 0"/>
     </VerticalStackLayout>
 </ContentPage>

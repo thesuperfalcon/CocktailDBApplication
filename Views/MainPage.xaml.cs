@@ -58,20 +58,25 @@ namespace CocktailDBApplication
         {
             List<Drink> drinkIngredients = await DrinkViewModel.GetDrinksAsync("list.php?i=", "list");
             List<Ingredient> ingredients = new List<Ingredient>();
-            if(drinkIngredients != null && drinkIngredients.Any())
+
+            if (drinkIngredients != null && drinkIngredients.Any())
             {
-                foreach(var drinkIngredient in drinkIngredients)
+                var tasks = drinkIngredients.Select(async drinkIngredient =>
                 {
                     var realIngredient = await IngredientViewModel.GetSingularIngredientAsync(drinkIngredient.strIngredient1);
                     ingredients.Add(realIngredient);
-                }
+                });
+
+                await Task.WhenAll(tasks);
             }
+
             await Navigation.PushAsync(new Views.DisplayIngredientChoicePage(ingredients));
         }
 
+
         private async void OnClickedShowCategories(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new Views.DisplayFilterPage());
+            await Navigation.PushAsync(new Views.DisplayCategoryChoicePage());
         }
     }
 }
