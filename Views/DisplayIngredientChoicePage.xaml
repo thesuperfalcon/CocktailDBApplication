@@ -4,11 +4,8 @@
              Shell.NavBarIsVisible="false">
     <StackLayout>
         <StackLayout HorizontalOptions="Center" Margin="5">
-            <Label Text="Display Drinks / Display Ingredient" VerticalOptions="Center"/>
-            <Switch x:Name="toggleSwitch" IsToggled="False" HorizontalOptions="CenterAndExpand" />
         </StackLayout>
-
-
+        
         <ScrollView>
             <FlexLayout x:Name="ingredientFlexLayout"
                         Direction="Row"
