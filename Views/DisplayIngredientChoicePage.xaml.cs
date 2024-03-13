@@ -1,3 +1,4 @@
+using CocktailDBApplication.Helpers;
 using CocktailDBApplication.Models;
 using CocktailDBApplication.ViewModels;
 using System.Collections.Generic;
@@ -10,13 +11,6 @@ public partial class DisplayIngredientChoicePage : ContentPage
 	public DisplayIngredientChoicePage(List<Ingredient> ingredients)
     {
         InitializeComponent();
-
-        toggleSwitch.Toggled += async (sender, e) =>
-        {
-            // Handle toggle state change here
-            // You can define the actions for ON and OFF states here
-        };
-
 
         foreach (var ingredient in ingredients)
         {
@@ -44,31 +38,30 @@ public partial class DisplayIngredientChoicePage : ContentPage
                     Children = { imageButton, label },
                     Margin = new Thickness(5)
                 };
-                // Use FFImageLoading to enable asynchronous image loading and caching
-
-                // Add a TapGestureRecognizer to the ImageButton
+               
                 imageButton.GestureRecognizers.Add(new TapGestureRecognizer
                 {
                     Command = new Command(async () =>
                     {
-                        if (toggleSwitch.IsToggled)
-                        {
+                       
                             var drinkList = await DrinkViewModel.GetDrinksAsync("filter.php?i=", ingredientName);
                             if (drinkList != null && drinkList.Any())
                             {
                                 var specificDrinks = await DrinkViewModel.GetDrinksByIngredientAsync(drinkList);
                                 await Navigation.PushAsync(new Views.DisplayDrinksChoicePage(specificDrinks));
                             }
-                        }
-                        else
-                        {
-                            await Navigation.PushAsync(new Views.DisplayIngredientPage(ingredient));
-                        }
+                       
                     })
                 });
 
                 ingredientFlexLayout.Children.Add(stackLayout);
+
             }
         }
-	}
+
+        var backButton = PageHelper.CreateBackButton(this);
+        backButton.VerticalOptions = LayoutOptions.End; 
+        ingredientFlexLayout.Children.Add(backButton);
+
+    }
 }

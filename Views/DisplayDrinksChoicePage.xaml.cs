@@ -1,3 +1,4 @@
+using CocktailDBApplication.Helpers;
 using CocktailDBApplication.Models;
 
 namespace CocktailDBApplication.Views
@@ -43,6 +44,10 @@ namespace CocktailDBApplication.Views
 
                 drinksFlexLayout.Children.Add(stackLayout);
             }
+
+            var backButton = PageHelper.CreateBackButton(this);
+            backButton.VerticalOptions = LayoutOptions.End;
+            drinksFlexLayout.Children.Add(backButton);
         }
     }
 }

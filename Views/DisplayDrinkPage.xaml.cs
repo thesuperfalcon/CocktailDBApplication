@@ -1,3 +1,4 @@
+using CocktailDBApplication.Helpers;
 using CocktailDBApplication.Models;
 using System.Globalization;
 
@@ -11,6 +12,9 @@ namespace CocktailDBApplication.Views
             BindingContext = specificDrink;
             NonNullMeasurementsAndIngredients = GetNonNullMeasurementsAndIngredients(specificDrink);
             ShowIngredientAndMeasurement.ItemsSource = NonNullMeasurementsAndIngredients;
+
+            var backButton = PageHelper.CreateBackButton(this);
+            backButtonContainer.Children.Add(backButton);
         }
 
         public List<string> NonNullMeasurementsAndIngredients { get; set; }
@@ -66,12 +70,20 @@ namespace CocktailDBApplication.Views
             if (measure.Contains("oz"))
             {
                 string ozString = measure.Substring(0, measure.IndexOf("oz")).Trim();
-                double oz = ozString.Contains('/') ? ParseMixedFraction(ozString) : double.Parse(ozString, CultureInfo.InvariantCulture);
+                double oz;
+                if (measure.Contains("-"))
+                {
+                    oz = CalculateAverage(measure);
+                }
+                else
+                {
+                    oz = ozString.Contains('/') ? ParseMixedFraction(ozString) : double.Parse(ozString, CultureInfo.InvariantCulture);
+                }
                 ml = Math.Round(oz * 30, 2);
             }
             else if (measure.Contains("cl"))
             {
-                double cl = measure.Contains("-") ? CalculateAverageCl(measure) : double.Parse(measure.Replace(".", ",").Replace("cl", "").Trim());
+                double cl = measure.Contains("-") ? CalculateAverage(measure) : double.Parse(measure.Replace(".", ",").Replace("cl", "").Trim());
                 ml = cl * 10;
             }
             else if (measure.Contains("shot"))
@@ -140,13 +152,26 @@ namespace CocktailDBApplication.Views
             return wholeNumber + (numerator / denominator);
         }
 
-        private double CalculateAverageCl(string measure)
+        private double CalculateAverage(string measure)
         {
-            string[] parts = measure.Replace("cl", "").Split('-');
-            if (parts.Length == 2 && double.TryParse(parts[0].Trim(), out double lower) && double.TryParse(parts[1].Trim(), out double upper))
+            string[] parts = measure.Split('-');
+            double sum = 0;
+            int count = 0;
+
+            foreach (string part in parts)
             {
-                double total = lower + upper;
-                return total / 2;
+                string[] splitPart = part.Trim().Split(' ');
+                if (double.TryParse(splitPart[0], out double value))
+                {
+                    sum += value;
+                    count++;
+                }
+            }
+
+            if (count > 0)
+            {
+                double average = sum / count;
+                return average;
             }
             else
             {

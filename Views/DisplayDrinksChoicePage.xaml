@@ -8,6 +8,8 @@
                     Direction="Row"
                     Wrap="Wrap"
                     AlignItems="Start"
-                    JustifyContent="Start"/>
+                    JustifyContent="Start">
+
+        </FlexLayout>
     </ScrollView>
 </ContentPage>

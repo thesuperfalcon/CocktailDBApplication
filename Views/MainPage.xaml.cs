@@ -51,7 +51,14 @@ namespace CocktailDBApplication
 
             List<Drink> drinks = await DrinkViewModel.GetDrinksAsync("search.php?f=", button.Text);
 
-            await Navigation.PushAsync(new Views.DisplayDrinksChoicePage(drinks));
+            if (drinks != null && drinks.Any())
+            {
+                await Navigation.PushAsync(new Views.DisplayDrinksChoicePage(drinks));
+            }
+            else
+            {
+                await DisplayAlert("No Recipes", "There are no recipes available for the selected letter.", "OK");
+            }
         }
 
         private async void OnClickedShowIngredients(object sender, EventArgs e)

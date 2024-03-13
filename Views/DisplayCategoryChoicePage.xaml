@@ -5,9 +5,10 @@
              Shell.NavBarIsVisible="false">
     <ScrollView>
         <FlexLayout x:Name="filtersFlexLayout"
-                    Direction="Row"
+                    Direction="Column"
                     Wrap="Wrap"
                     AlignItems="Start"
-                    JustifyContent="Start"/>
+                    JustifyContent="Start">
+        </FlexLayout>
     </ScrollView>
 </ContentPage>
