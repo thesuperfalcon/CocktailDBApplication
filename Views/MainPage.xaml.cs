@@ -68,17 +68,16 @@ namespace CocktailDBApplication
 
             if (drinkIngredients != null && drinkIngredients.Any())
             {
-                var tasks = drinkIngredients.Select(async drinkIngredient =>
+                foreach (var drinkIngredient in drinkIngredients)
                 {
                     var realIngredient = await IngredientViewModel.GetSingularIngredientAsync(drinkIngredient.strIngredient1);
                     ingredients.Add(realIngredient);
-                });
-
-                await Task.WhenAll(tasks);
+                }
             }
 
             await Navigation.PushAsync(new Views.DisplayIngredientChoicePage(ingredients));
         }
+
 
 
         private async void OnClickedShowCategories(object sender, EventArgs e)

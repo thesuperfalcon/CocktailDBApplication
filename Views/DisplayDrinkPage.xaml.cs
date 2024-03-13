@@ -24,41 +24,48 @@ namespace CocktailDBApplication.Views
             List<string> result = new List<string>();
             List<string> nonDigitIngredients = new List<string>();
 
-            for (int i = 1; i <= 15; i++)
+            try
             {
-                var ingredientProperty = typeof(Drink).GetProperty($"strIngredient{i}");
-                var measureProperty = typeof(Drink).GetProperty($"strMeasure{i}");
-
-                var ingredient = (string)ingredientProperty.GetValue(drink);
-                var measure = (string)measureProperty.GetValue(drink);
-
-                if (!string.IsNullOrEmpty(ingredient) && measure != null)
+                for (int i = 1; i <= 15; i++)
                 {
-                    measure = ConvertMeasurementToMl(measure.ToLower());
-                    result.Add($"{measure} {ingredient}");
-                }
-                else if (!string.IsNullOrEmpty(ingredient))
-                {
-                    if (ingredient.Any(char.IsDigit))
+                    var ingredientProperty = typeof(Drink).GetProperty($"strIngredient{i}");
+                    var measureProperty = typeof(Drink).GetProperty($"strMeasure{i}");
+
+                    var ingredient = (string)ingredientProperty.GetValue(drink);
+                    var measure = (string)measureProperty.GetValue(drink);
+
+                    if (!string.IsNullOrEmpty(ingredient) && measure != null)
                     {
-                        result.Add(ingredient);
+                        measure = ConvertMeasurementToMl(measure.ToLower());
+                        result.Add($"{measure} {ingredient}");
                     }
-                    nonDigitIngredients.Add(ingredient);
+                    else if (!string.IsNullOrEmpty(ingredient))
+                    {
+                        if (ingredient.Any(char.IsDigit))
+                        {
+                            result.Add(ingredient);
+                        }
+                        nonDigitIngredients.Add(ingredient);
+                    }
                 }
+
+                result = result.OrderByDescending(x =>
+                {
+                    double.TryParse(x.Split(' ')[0], out double measureValue);
+                    return measureValue;
+                }).ToList();
+
+                result.AddRange(nonDigitIngredients);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                // Handle the error here, you may want to log it or display an error message
             }
 
-
-            result = result.OrderByDescending(x =>
-            {
-                double.TryParse(x.Split(' ')[0], out double measureValue);
-                return measureValue;
-            }).ToList();
-
-            result.AddRange(nonDigitIngredients);
-
             return result;
-
         }
+
 
         private string ConvertMeasurementToMl(string measure)
         {

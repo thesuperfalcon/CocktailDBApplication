@@ -50,7 +50,6 @@ public partial class DisplayIngredientChoicePage : ContentPage
                                 var specificDrinks = await DrinkViewModel.GetDrinksByIngredientAsync(drinkList);
                                 await Navigation.PushAsync(new Views.DisplayDrinksChoicePage(specificDrinks));
                             }
-                       
                     })
                 });
 
